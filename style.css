@@ -1,0 +1,33 @@
+select {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.mt30 {
+  margin-top: 30px !important;
+}
+
+.ui.segment {
+  border-radius: 0px !important;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-container {
+  min-width: 320px;
+  text-align: center;
+}
+
+.logo {
+  height: 30px;
+  padding-top: 7px;
+  padding-right: 10px;
+}
+
+#trivia,
+#highScores {
+  display: none;
+}

@@ -4,10 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
+    
+    <link rel="shortcut icon" href="./Assets/trivialogo.png" />
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+      <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -19,20 +26,93 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Work Day Scheduler</title>
-  </head>
+    <title>Trivia</title>
 
   <body>
-    <header class="jumbotron">
-      <h1 class="display-3">Work Day Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your work day</p>
-      <p id="currentDay" class="lead"></p>
-    </header>
-    <div class="container">
-      <!-- Timeblocks go here -->
+    <nav>
+      <div class="ui inverted segment">
+        <div class="ui inverted secondary pointing menu">
+          <img src="./Assets/trivialogo.png" class="logo" alt="trivialogo">
+          <a id="home" class="item active"  onclick="showScreen('menu')">
+            Home
+          </a>
+          <a id="scores" class="item" onclick="showScreen('highScores')">
+            High Scores
+          </a>
+        </div>
+      </div>
+    </nav>
+    
+    
+    <form id="menu" onsubmit="showScreen('trivia')" class="w3-center w3-animate-left">
+      <div class="ui container">
+        <div>
+          <div class="ui input one column stackable grid mt30">
+            <input type="number" min="10" max="50" placeholder="Number of Questions" required>
+          </div>
+          <div class="ui one column stackable grid">
+            <select class="ui dropdown" required>
+            <!-- required to select an option in order to submit-->
+              <option value="">Select Category</option>
+              <option value="9">General Knowledge</option>
+              <option value="10">Books</option>
+              <option value="11">Music</option>
+              <option value="12">Television</option>
+            </select>
+          </div>
+          <div class="ui one column stackable grid">
+            <select class="ui dropdown" required>
+            <!-- required to select an option in order to submit-->
+              <option value="">Select Difficulty</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div class="ui one column stackable grid mt30" >
+            <!-- submit will call onsubmit in form -->
+            <button type="submit" class="fluid ui button">Start Trivia</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div id="highScores" class="ui one column stackable grid mt30 center aligned aligned w3-center w3-animate-right">
+      <h2 class="ui header column">
+        High Scores
+      </h2>
+      <div class="grid-container">
+        <div class="item grid">
+          <div>Joe</div> 
+          <div>100pts</div>
+        </div>
+        <div class="item grid">
+          <div>Jane</div> 
+          <div>210pts</div>
+        </div>
+        <div class="item grid">
+          <div>Michael</div> 
+          <div>50pts</div>
+        </div>
+      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <div id="trivia" class="ui container mt30 center aligned w3-center w3-animate-bottom" >
+      <h2 class="ui header column">
+        In a game of snooker, what colour ball is worth 3 points?
+      </h2>
+      <button class="fluid ui button mt30">Green</button>
+      <button class="fluid ui button mt30">Yellow</button>
+      <button class="fluid ui button mt30">Brown</button>
+      <button class="fluid ui button mt30">Blue</button>
+    </div>
+
+
+
+    
+
+
   </body>
+
+  <script src="./script.js"></script>
 </html>
