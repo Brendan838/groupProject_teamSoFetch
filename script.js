@@ -1,7 +1,14 @@
-//Declarations of all buttons
+//score variables
+var scoreObject = {
+  username: [],
+  score: []
+}
+var storedScores = JSON.parse(localStorage.getItem("scores"))
+var scoreEl = document.querySelector("#scoreEl")
+var scoreHeader = document.querySelector("#scoreHeader")
+var gifTest = document.querySelector("#gifTest")
 
-
-
+//All functions on page load
 let showScreen = function (screen) {
   //prevent page from reloading on form submission
   window.event.preventDefault();
@@ -21,13 +28,12 @@ let showScreen = function (screen) {
   document.getElementById(screen).style.display = "block";
 };
 
-//All functions on page load
- 
 
 
 
 
-//Event Functionality of all Buttons
+
+
 
 
 
@@ -36,7 +42,7 @@ let showScreen = function (screen) {
 
 function getGIF(searchItem, gifEl) {
 
-  var requestUrl = "https://api.giphy.com/v1/gifs/search?api_key=0pXpAzRY9RmZGboXjvmC9uwTPKv6JApT&q=" + searchItem + "&limit=25&offset=0&rating=pg-13&lang=en"
+  var requestUrl = "https://api.giphy.com/v1/gifs/search?api_key=0pXpAzRY9RmZGboXjvmC9uwTPKv6JApT&q=" + searchItem + "&limit=50&offset=0&rating=pg-13&lang=en"
 
   fetch(requestUrl)
     .then(function (response) {
@@ -53,6 +59,39 @@ function getGIF(searchItem, gifEl) {
 
 
 
-//other functions
+//function for storing high scores
+
+function addScore(userInit, highScore) {
+if (storedScores !== null){
+storedScores.username.unshift(userInit)
+storedScores.score.unshift(highScore)
+localStorage.setItem("scores", JSON.stringify(storedScores))
+}
+else {
+scoreObject.username.unshift(userInit)
+scoreObject.score.unshift(highScore)
+localStorage.setItem("scores", JSON.stringify(scoreObject))
+storedScores = JSON.parse(localStorage.getItem("scores"))
+}
+}
+//function for printing high scores
+function printScores() {
+if (storedScores === null){
+scoreHeader.textContent = "There are no high scores yet. Play a quiz!"
+}
+else {
+for (var i = 0; i < storedScores.username.length; i++){
+console.log("testing")
+var userDiv = document.createElement("div")
+var scoreDiv = document.createElement("div")
+userDiv.innerHTML = storedScores.username[i]
+scoreDiv.innerHTML = storedScores.score[i]
+scoreEl.append(userDiv)
+scoreEl.append(scoreDiv)
+}
+}
+}
+
+
 
 

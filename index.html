@@ -29,7 +29,7 @@
     <title>Trivia</title>
 
   <body>
-  <img id="gifTest">
+
     <nav>
       <div class="ui inverted segment">
         <div class="ui inverted secondary pointing menu">
@@ -80,23 +80,12 @@
  
 
     <div id="highScores" class="ui one column stackable grid mt30 center aligned aligned w3-center w3-animate-right">
-      <h2 class="ui header column">
+      <h2 class="ui header column" id = "scoreHeader">
         High Scores
       </h2>
       <div class="grid-container">
-        <div class="item grid">
-          <div>Joe</div>  
-          <div>100pts</div>
-        </div>
-        <div class="item grid">
-          <div>Jane</div> 
-          <div>210pts</div>
-        </div>
-        <div class="item grid">
-          <div>Michael</div> 
-          <div>50pts</div>
-        </div>
-      </div>
+        <div class="item grid" id = "scoreEl"></div>
+        <img id = "gifTest">
     </div>
 
     <div id="trivia" class="ui container mt30 center aligned w3-center w3-animate-bottom" >
