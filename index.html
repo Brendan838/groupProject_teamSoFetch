@@ -44,13 +44,14 @@
       </div>
     </nav>
     
-    
+    <!-- this is the menu screen -->
     <form id="menu" onsubmit="showScreen('trivia')" class="w3-center w3-animate-left">
       <div class="ui container">
         <div>
           <div class="ui input one column stackable grid mt30">
-            <input type="number" min="10" max="50" placeholder="Number of Questions" required>
+            <input id="name" type="text" min="10" max="50" placeholder="Please Enter Your Name" required>
           </div>
+          
           <div class="ui one column stackable grid">
             <select class="ui dropdown" required>
             <!-- required to select an option in order to submit-->
@@ -77,17 +78,23 @@
         </div>
       </div>
     </form>
- 
 
+    <!-- this is the high scores screen -->
     <div id="highScores" class="ui one column stackable grid mt30 center aligned aligned w3-center w3-animate-right">
-      <h2 class="ui header column" id = "scoreHeader">
+      <h2 class="ui header column" id="scoreHeader">
         High Scores
       </h2>
+      <div class="grid">
+        <div>Kabao</div>
+        <div>100 points</div>
+      </div>
       <div class="grid-container">
-        <div class="item grid" id = "scoreEl"></div>
-        <img id = "gifTest">
+        <div class="item grid" id="scoreEl"></div>
+        <img id="gifTest">
+    </div>
     </div>
 
+    <!-- this is the trivia screen -->
     <div id="trivia" class="ui container mt30 center aligned w3-center w3-animate-bottom" >
       <h2 class="ui header column">
         In a game of snooker, what colour ball is worth 3 points?
@@ -97,11 +104,6 @@
       <button class="fluid ui button mt30">Brown</button>
       <button class="fluid ui button mt30">Blue</button>
     </div>
-
-
-
-    
-
 
   </body>
 
