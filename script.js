@@ -92,6 +92,21 @@ scoreEl.append(scoreDiv)
 }
 }
 
+//start of the Quiz API// 
+fetch ("https://opentdb.com/api.php?amount=1")
+  .then( response => response.json())
+  .then(data => console.log (data))
+  function useApiData (data) {
+  document.querySelector("#trivia").innerHTML = $("data.results[0].category")
+  document.querySelector("#button1").innerHTML = $("data.results[0].correct_answer")
+  document.querySelector("#button2").innerHTML = $("data.results[0].incorrect_answers")
+  document.querySelector("#button3").innerHTML = $("data.results[0].incorrect_answers")
+  document.querySelector("#button4").innerHTML = $("data.results[0].incorrect_answers")
+}
 
+let correctButton = document.querySelector("button")
+
+// Randomize wrong answer//
+const questions.answer = Math.floor(Math.random()*3) +1;
 
 
