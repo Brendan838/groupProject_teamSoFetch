@@ -99,42 +99,71 @@
       </div>
     </form>
 
+
+
+
+
     <!-- this is the high scores screen -->
-    <div id="highScores" class="ui one column stackable grid mt30 center aligned aligned w3-center w3-animate-right">
+  <div id="highScores" class="ui one column stackable grid mt30 center aligned aligned w3-center w3-animate-right">
       <h2 class="ui header column" id="scoreHeader">
         High Scores
       </h2>
-      <div class="grid">
-        <div>Kabao</div>
-        <div>100 points</div>
-        <div>test</div>
+      <div>
+        <table class="ui single line table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Catergory</th>
+            <th>Difficulty</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John Lilki</td>
+            <td>Books</td>
+            <td>Easy</td>
+            <td>100 points</td>
+          </tr>
+          <tr>
+            <td>Jamie Harington</td>
+            <td>Entertainment</td>
+            <td>Hard</td>
+            <td>200 points</td>
+          </tr>
+          <tr>
+            <td>Jill Lewis</td>
+            <td>History</td>
+            <td>Easy</td>
+            <td>300 points</td>
+          </tr>
+        </tbody>
+        </table>
       </div>
-      <div class="grid-container">
+
+    <div class="grid-container">
         <div class="item grid" id="scoreEl"></div>
+    </div>
+  </div>
+  
     
-    </div>
-    </div>
+
+
 
     <!-- this is the trivia screen -->
     <div id="trivia" class="ui container mt30 center aligned w3-center w3-animate-bottom" >
-      <h2 class="ui header column" id= "quizQuestion">
-        In a game of snooker, what colour ball is worth 3 points?
-      </h2>
-      <button class="fluid ui button mt30 answerButtons">Green</button>
-      <button class="fluid ui button mt30 answerButtons">Yellow</button>
-      <button class="fluid ui button mt30 answerButtons">Brown</button>
-      <button class="fluid ui button mt30 answerButtons">Blue</button>
-      
+      <h2 class="ui header column" id= "quizQuestion"></h2>
+      <button class="fluid ui button mt30 answerButtons"></button>
+      <button class="fluid ui button mt30 answerButtons"></button>
+      <button class="fluid ui button mt30 answerButtons"></button>
+      <button class="fluid ui button mt30 answerButtons"></button>
     </div>
 
     <div id="gifScreen" class="ui container mt30 center aligned w3-center w3-animate-bottom">
-     <h2 class="ui header column" id= "gifScreenMessage">
-      </h2>
-      <img id= "gifDisplay">
+     <h2 class="ui header column" id= "gifScreenMessage"></h2>
+     <img id="gifDisplay">
     </div>
 
-
   </body>
-
   <script src="./script.js"></script>
 </html>

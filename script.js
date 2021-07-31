@@ -8,29 +8,27 @@ var scoreEl = document.querySelector("#scoreEl");
 var scoreHeader = document.querySelector("#scoreHeader");
 var gifTest = document.querySelector("#gifTest");
 //trivia screen variable
-var quizQuestion = document.querySelector("#quizQuestion")
-var quizAnswers = document.getElementsByClassName("answerButtons")
-var submitButton = document.querySelector("#submitButton")
+var quizQuestion = document.querySelector("#quizQuestion");
+var quizAnswers = document.getElementsByClassName("answerButtons");
+var submitButton = document.querySelector("#submitButton");
 var userScore = 0;
-var lives = 3
+var lives = 3;
 //gifScreen variables
-var gifScreen = document.querySelector("#gifScreen")
-var gifDisplay = document.querySelector("#gifDisplay")
-var trivia =  document.querySelector("#trivia")
-var gifScreenMessage = document.querySelector("#gifScreenMessage")
+var gifScreen = document.querySelector("#gifScreen");
+var gifDisplay = document.querySelector("#gifDisplay");
+var trivia = document.querySelector("#trivia");
+var gifScreenMessage = document.querySelector("#gifScreenMessage");
 //menu variables
-var topicDropDown = document.querySelector("#topicDropDown")
-var difficultyDropDown = document.querySelector("#difficulty")
+var topicDropDown = document.querySelector("#topicDropDown");
+var difficultyDropDown = document.querySelector("#difficulty");
 
-
-
-submitButton.onclick = function() {
-var t = topicDropDown.value
-var d = difficultyDropDown.value
-console.log(t)
-console.log(difficulty)
-getQuizApi(t, d)
-}
+submitButton.onclick = function () {
+  var t = topicDropDown.value;
+  var d = difficultyDropDown.value;
+  console.log(t);
+  console.log(difficulty);
+  getQuizApi(t, d);
+};
 
 //All functions on page load
 let showScreen = function (screen) {
@@ -106,48 +104,56 @@ function printScores() {
 
 //Quiz API
 
-
 function getQuizApi(topic, difficulty) {
-var requestUrl = "https://opentdb.com/api.php?amount=50&category=" + topic + "&difficulty=" + difficulty + "&type=multiple"
+  var requestUrl =
+    "https://opentdb.com/api.php?amount=50&category=" +
+    topic +
+    "&difficulty=" +
+    difficulty +
+    "&type=multiple";
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-    console.log(data)
-    var i = Math.floor(Math.random() * data.results.length)
-    quizQuestion.innerHTML = data.results[i].question; //quiz question is the div for displaying the question
-    var answers = [data.results[i].correct_answer, data.results[i].incorrect_answers[0],data.results[i].incorrect_answers[1],data.results[i].incorrect_answers[2]]
-    var randomizedAnswers = answers.sort(() => Math.random() - .5)//this is a fancy function that I found to randomize questions
-      for (var t= 0; t < 4; t++){
-      quizAnswers[t].innerHTML= randomizedAnswers[t] //quiz answers is the class representing
+      console.log(data);
+      var i = Math.floor(Math.random() * data.results.length);
+      quizQuestion.innerHTML = data.results[i].question; //quiz question is the div for displaying the question
+      var answers = [
+        data.results[i].correct_answer,
+        data.results[i].incorrect_answers[0],
+        data.results[i].incorrect_answers[1],
+        data.results[i].incorrect_answers[2],
+      ];
+      var randomizedAnswers = answers.sort(() => Math.random() - 0.5); //this is a fancy function that I found to randomize questions
+      for (var t = 0; t < 4; t++) {
+        quizAnswers[t].innerHTML = randomizedAnswers[t]; //quiz answers is the class representing
       }
-      for(var g = 0; g < 4 ; g++) {
-      var quizButtons = quizAnswers[g];
-      quizButtons.onclick = function() {
-      if (this.innerHTML === data.results[i].correct_answer){
-      console.log("Correct")
-      userScore++; //We can have a variable to tally up user score
-      showGifScreen(data.results[i].correct_answer, "Correct!")
-      getQuizApi(topic, difficulty)
-     }
-      else {
-      lives--;
-      showGifScreen("Angry", "Wrong!")
-      getQuizApi(topic, difficulty) 
+      for (var g = 0; g < 4; g++) {
+        var quizButtons = quizAnswers[g];
+        quizButtons.onclick = function () {
+          if (this.innerHTML === data.results[i].correct_answer) {
+            console.log("Correct");
+            userScore++; //We can have a variable to tally up user score
+            showGifScreen(data.results[i].correct_answer, "Correct!");
+            getQuizApi(topic, difficulty);
+          } else {
+            lives--;
+            showGifScreen("Angry", "Wrong!");
+            getQuizApi(topic, difficulty);
+          }
+        };
       }
-      }
-      }
-   })
+    });
 }
 
 function showGifScreen(searchItem, message) {
-trivia.style.display = "none"
-getGIF(searchItem, gifDisplay)
-gifScreenMessage.textContent = message
-gifScreen.style.display = "block"
-setTimeout(function(){ 
-trivia.style.display = "block"
-gifScreen.style.display = "none"
-      }, 3000);
+  trivia.style.display = "none";
+  getGIF(searchItem, gifDisplay);
+  gifScreenMessage.textContent = message;
+  gifScreen.style.display = "block";
+  setTimeout(function () {
+    trivia.style.display = "block";
+    gifScreen.style.display = "none";
+  }, 3000);
 }
