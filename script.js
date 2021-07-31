@@ -7,6 +7,17 @@ var storedScores = JSON.parse(localStorage.getItem("scores"));
 var scoreEl = document.querySelector("#scoreEl");
 var scoreHeader = document.querySelector("#scoreHeader");
 var gifTest = document.querySelector("#gifTest");
+//trivia screen variables
+getQuizApi(9, "easy")
+var quizQuestion = document.querySelector("#quizQuestion")
+var quizAnswers = document.getElementsByClassName("answerButtons")
+var menuSubmit = document.querySelector("#menuSubmit")
+var userScore = 0;
+//gifScreen variables
+var gifScreen = document.querySelector("#gifScreen")
+var gifDisplay = document.querySelector("#gifDisplay")
+var trivia =  document.querySelector("#trivia")
+var gifScreenMessage = document.querySelector("#gifScreenMessage")
 
 //All functions on page load
 let showScreen = function (screen) {
@@ -100,64 +111,7 @@ function useApiData(data) {
   );
 }
 
-
-
-// Randomize wrong answer//
-//const questions.answer = Math.floor(Math.random()*3) +1;
-
-
-
-// API Quiz Function & Vars // 
-
-/*
-var one = document.querySelector("#one")
-var two = document.querySelector("#two")
-var three = document.querySelector("#three")
-var four = document.querySelector("#four")
-var quiz = document.querySelector("#quiz")
-var  difficulty = document.querySelector("#difficulty")
-quiz.innerHTML = "test"
-
-
- fetch ("https://opentdb.com/api.php?amount=1")
-    .then(function (response) {
-    return response.json();
-    })
-    .then(function (data) {
-      console.log(data)
-      useAPIData(data)
-    })
-
-    .then(data => {
-      var oneValue = data.results[0]["correct_answer"];
-      var twoValue = data.results[0]["incorrect_answers"];
-      var threeValue = data.results[0]["incorrect_answers"];
-      var fourValue = data.results[0]["incorrect_answers"];
-      var quizValue = data.results[0]["question"];
-      var categoryValue = data.results[0]["category"];
-      var difficultyValue = data.results[0]["difficulty"];
-
-      one.innerHTML= oneValue;
-      two.innerHTML = twoValue;
-      three.innerHTML = threeValue;
-      four.innerHTML = fourValue;
-      quiz.innerHTML = quizValue;
-      category.innerHTML = categoryValue;
-      difficulty.innerHTML = difficultyValue;
-
-      function useApiData (data) {
-        document.querySelector("#trivia").innerHTML = 'Question: ${data.results[0].question}'
-      }
-    })
-      
-    .catch(err => alert ("not working"))
-*/
-
-getQuizApi(9, "easy")
-var quizQuestion = document.querySelector("#quizQuestion")
-var quizAnswers = document.getElementsByClassName("answerButtons")
-var menuSubmit = document.querySelector("#menuSubmit")
-var userScore = 0;
+//Quiz API
 
 
 function getQuizApi(topic, difficulty) {
@@ -181,12 +135,25 @@ var requestUrl = "https://opentdb.com/api.php?amount=50&category=" + topic + "&d
       if (this.innerHTML === data.results[i].correct_answer){
       console.log("Correct")
       userScore++; //We can have a variable to tally up user score
-      
+      showGifScreen(data.results[i].correct_answer, "Correct!")
+      getQuizApi(topic, difficulty)
      }
       else {
-      console.log("incorrect")
+      showGifScreen("Angry", "Wrong!")
+      getQuizApi(topic, difficulty) 
       }
       }
       }
    })
+}
+
+function showGifScreen(searchItem, message) {
+trivia.style.display = "none"
+getGIF(searchItem, gifDisplay)
+gifScreenMessage.textContent = message
+gifScreen.style.display = "block"
+setTimeout(function(){ 
+trivia.style.display = "block"
+gifScreen.style.display = "none"
+      }, 3000);
 }
