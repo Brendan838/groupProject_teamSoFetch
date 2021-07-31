@@ -45,25 +45,45 @@
     </nav>
     
     <!-- this is the menu screen -->
-    <form id="menu" onsubmit="showScreen('trivia')" class="w3-center w3-animate-left">
+    <form id="menu" onsubmit= "showScreen('trivia')" class="w3-center w3-animate-left">
       <div class="ui container">
         <div>
           <div class="ui input one column stackable grid mt30">
             <input id="name" type="text" min="10" max="50" placeholder="Please Enter Your Name" required>
           </div>
-          
+         
           <div class="ui one column stackable grid">
-            <select class="ui dropdown" required>
+            <select class="ui dropdown" id= "topicDropDown" required>
             <!-- required to select an option in order to submit-->
               <option value="">Select Category</option>
               <option value="9">General Knowledge</option>
               <option value="10">Books</option>
-              <option value="11">Music</option>
-              <option value="12">Television</option>
+              <option value="11">Film</option>
+              <option value="12">Music</option>
+              <option value=“13”>Musicals/Theatre</option>
+              <option value="14">Television</option>
+              <option value="15">Video Games</option>  
+              <option value="16">Board Games</option>
+              <option value="17">Science & Nature</option> 
+              <option value="18">Computer Science</option>
+              <option value="19">Mathematics</option>
+              <option value="20">Mythology</option>
+              <option value="21">Sports</option>
+              <option value="22">Geography</option>
+              <option value="23">History</option>
+              <option value="24">Politics</option>
+              <option value="25">Art</option>
+              <option value="26">Celebrities</option>
+              <option value="27">Animals</option>
+              <option value="28">Vehicles</option>
+              <option value="29">Comics</option>
+              <option value="30">Gadgets</option>
+              <option value="31">Anime/Manga</option>
+              <option value="32">Vehicles</option>
             </select>
           </div>
           <div class="ui one column stackable grid">
-            <select class="ui dropdown" required>
+            <select class="ui dropdown" id= "difficulty" required>
             <!-- required to select an option in order to submit-->
               <option value="">Select Difficulty</option>
               <option value="easy">Easy</option>
@@ -73,7 +93,7 @@
           </div>
           <div class="ui one column stackable grid mt30" >
             <!-- submit will call onsubmit in form -->
-            <button type="submit" class="fluid ui button">Start Trivia</button>
+            <button type="submit" class="fluid ui button" id= "submitButton" >Start Trivia</button>
           </div>
         </div>
       </div>
@@ -87,6 +107,7 @@
       <div class="grid">
         <div>Kabao</div>
         <div>100 points</div>
+        <div>test</div>
       </div>
       <div class="grid-container">
         <div class="item grid" id="scoreEl"></div>

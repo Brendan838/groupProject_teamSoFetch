@@ -7,17 +7,30 @@ var storedScores = JSON.parse(localStorage.getItem("scores"));
 var scoreEl = document.querySelector("#scoreEl");
 var scoreHeader = document.querySelector("#scoreHeader");
 var gifTest = document.querySelector("#gifTest");
-//trivia screen variables
-getQuizApi(9, "easy")
+//trivia screen variable
 var quizQuestion = document.querySelector("#quizQuestion")
 var quizAnswers = document.getElementsByClassName("answerButtons")
-var menuSubmit = document.querySelector("#menuSubmit")
+var submitButton = document.querySelector("#submitButton")
 var userScore = 0;
+var lives = 3
 //gifScreen variables
 var gifScreen = document.querySelector("#gifScreen")
 var gifDisplay = document.querySelector("#gifDisplay")
 var trivia =  document.querySelector("#trivia")
 var gifScreenMessage = document.querySelector("#gifScreenMessage")
+//menu variables
+var topicDropDown = document.querySelector("#topicDropDown")
+var difficultyDropDown = document.querySelector("#difficulty")
+
+
+
+submitButton.onclick = function() {
+var t = topicDropDown.value
+var d = difficultyDropDown.value
+console.log(t)
+console.log(difficulty)
+getQuizApi(t, d)
+}
 
 //All functions on page load
 let showScreen = function (screen) {
@@ -91,26 +104,6 @@ function printScores() {
   }
 }
 
-//start of the Quiz API//
-fetch("https://opentdb.com/api.php?amount=1")
-  .then((response) => response.json())
-  .then((data) => console.log(data));
-function useApiData(data) {
-  document.querySelector("#trivia").innerHTML = $("data.results[0].category");
-  document.querySelector("#button1").innerHTML = $(
-    "data.results[0].correct_answer"
-  );
-  document.querySelector("#button2").innerHTML = $(
-    "data.results[0].incorrect_answers"
-  );
-  document.querySelector("#button3").innerHTML = $(
-    "data.results[0].incorrect_answers"
-  );
-  document.querySelector("#button4").innerHTML = $(
-    "data.results[0].incorrect_answers"
-  );
-}
-
 //Quiz API
 
 
@@ -139,6 +132,7 @@ var requestUrl = "https://opentdb.com/api.php?amount=50&category=" + topic + "&d
       getQuizApi(topic, difficulty)
      }
       else {
+      lives--;
       showGifScreen("Angry", "Wrong!")
       getQuizApi(topic, difficulty) 
       }
