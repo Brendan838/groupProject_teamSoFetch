@@ -100,7 +100,7 @@ function useApiData(data) {
   );
 }
 
-let correctButton = document.querySelector("button");
+
 
 // Randomize wrong answer//
 //const questions.answer = Math.floor(Math.random()*3) +1;
@@ -109,14 +109,14 @@ let correctButton = document.querySelector("button");
 
 // API Quiz Function & Vars // 
 
-
+/*
 var one = document.querySelector("#one")
 var two = document.querySelector("#two")
 var three = document.querySelector("#three")
 var four = document.querySelector("#four")
 var quiz = document.querySelector("#quiz")
 var  difficulty = document.querySelector("#difficulty")
-
+quiz.innerHTML = "test"
 
 
  fetch ("https://opentdb.com/api.php?amount=1")
@@ -151,39 +151,42 @@ var  difficulty = document.querySelector("#difficulty")
     })
       
     .catch(err => alert ("not working"))
+*/
 
-// var quizQuestion = document.querySelector("#quizQuestion")
-//var quizQuestion = document.querySelector("#quizQuestion")
-//var quizAnswers = document.getElementsByClassName("answerButtons")
-//var menuSubmit = document.querySelector("#menuSubmit")
-//var userScore = 0;
-//function getQuizApi(topic, difficulty) {
-//var requestUrl = "https://opentdb.com/api.php?amount=50&category=" + topic + "&difficulty=" + difficulty + "&type=multiple"
-  //fetch(requestUrl)
-   // .then(function (response) {
-    //  return response.json();
-    //})
-    //.then(function (data) {
-    //console.log(data)
-   // var i = Math.floor(Math.random() * data.results.length)
-   // quizQuestion.innerHTML = data.results[i].question; //quiz question is the div for displaying the question
-    //var answers = [data.results[i].correct_answer, data.results[i].incorrect_answers[0],data.results[i].incorrect_answers[1],data.results[i].incorrect_answers[2]]
-    //var randomizedAnswers = answers.sort(() => Math.random() - .5)//this is a fancy function that I found to randomize questions
-     // for (var t= 0; t < 4; t++){
-     // quizAnswers[t].innerHTML= randomizedAnswers[t] //quiz answers is the class representing
-     // }
-      //for(var g = 0; g < 4 ; g++) {
-      //var quizButtons = quizAnswers[g];
-     // quizButtons.onclick = function() {
-     // if (this.innerHTML === data.results[i].correct_answer){
-      //console.log("Correct")
-      //userScore++; //We can have a variable to tally up user score
-     // from here we can add a few other steps to move it to the next question/show GIF
-     // }
-      //else {
-     // console.log("incorrect")
-     // }
-     //  }
-    //    }
-  //  })
-//}
+getQuizApi(9, "easy")
+var quizQuestion = document.querySelector("#quizQuestion")
+var quizAnswers = document.getElementsByClassName("answerButtons")
+var menuSubmit = document.querySelector("#menuSubmit")
+var userScore = 0;
+
+
+function getQuizApi(topic, difficulty) {
+var requestUrl = "https://opentdb.com/api.php?amount=50&category=" + topic + "&difficulty=" + difficulty + "&type=multiple"
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+    console.log(data)
+    var i = Math.floor(Math.random() * data.results.length)
+    quizQuestion.innerHTML = data.results[i].question; //quiz question is the div for displaying the question
+    var answers = [data.results[i].correct_answer, data.results[i].incorrect_answers[0],data.results[i].incorrect_answers[1],data.results[i].incorrect_answers[2]]
+    var randomizedAnswers = answers.sort(() => Math.random() - .5)//this is a fancy function that I found to randomize questions
+      for (var t= 0; t < 4; t++){
+      quizAnswers[t].innerHTML= randomizedAnswers[t] //quiz answers is the class representing
+      }
+      for(var g = 0; g < 4 ; g++) {
+      var quizButtons = quizAnswers[g];
+      quizButtons.onclick = function() {
+      if (this.innerHTML === data.results[i].correct_answer){
+      console.log("Correct")
+      userScore++; //We can have a variable to tally up user score
+      
+     }
+      else {
+      console.log("incorrect")
+      }
+      }
+      }
+   })
+}
