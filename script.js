@@ -22,8 +22,29 @@ var gifScreen = document.querySelector("#gifScreen");
 var gifDisplay = document.querySelector("#gifDisplay");
 var trivia = document.querySelector("#trivia");
 var gifScreenMessage = document.querySelector("#gifScreenMessage");
+var correctArray = [
+"Dancing",
+"Applause",
+"yay",
+"Party",
+"Celebration",
+"Yas",
+"tears of joy"
+]
+var incorrectArray = [
+"Angry",
+"yikes",
+"wrong",
+"stupid",
+"sad",
+"fail",
+"fool",
+]
+var gifIndex = Math.floor(Math.random() * 8)
+
 //homescreen variables
 var topicDropDown = document.querySelector("#topicDropDown");
+var dropDownName = document.getElementsByClassName("dropDownName")
 var difficultyDropDown = document.querySelector("#difficulty");
 var userName = document.querySelector("#name")
 
@@ -35,10 +56,7 @@ submitButton.onclick = function () {
   getQuizApi(t, d);
 };
 //high score screen click
-highScoreMain.addEventListener("click", function() {
 printScores()
-})
-
 //All functions on page load
 let showScreen = function (screen) {
   //prevent page from reloading on form submission
@@ -104,13 +122,14 @@ function printScores() {
     scoreHeader.textContent = "There are no high scores yet. Play a quiz!";
   } else {
     for (var i = 0; i < storedScores.Username.length; i++) {
-      //tableRows[i].style.display = "inline"
+      var indexNumber = (storedScores.Category[i]-9)
+      console.log(indexNumber)
       var tr1 = document.createElement("td")
       var tr2 = document.createElement("td")
       var tr3 = document.createElement("td")
       var tr4 = document.createElement("td")
       tr1.textContent = storedScores.Username[i]
-      tr2.textContent = storedScores.Category[i]
+      tr2.textContent = dropDownName[indexNumber].textContent
       tr3.textContent = storedScores.Difficulty[i]
       tr4.textContent = storedScores.Score[i]
       tableRows[i].appendChild(tr1)
@@ -127,11 +146,13 @@ function printScores() {
 
 function getQuizApi(topic, difficulty) {
   var requestUrl =
-    "https://opentdb.com/api.php?amount=50&category=" +
+    "https://opentdb.com/api.php?amount=20&category=" +
     topic +
     "&difficulty=" +
     difficulty +
     "&type=multiple";
+    console.log(topic)
+    console.log(difficulty)
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -156,18 +177,17 @@ function getQuizApi(topic, difficulty) {
           if (this.innerHTML === data.results[i].correct_answer) {
             console.log("Correct");
             userScore++; //We can have a variable to tally up user score
-            showGifScreen(data.results[i].correct_answer, "Correct!");
+            showGifScreen(correctArray[gifIndex], "Correct!");
             getQuizApi(topic, difficulty);
           } else {
             lives--;
-            showGifScreen("Angry", "Wrong!");
+            showGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".")
             getQuizApi(topic, difficulty);
             var c = topicDropDown.value;
             var d = difficultyDropDown.value;
             var u = userName.value;
             var s = userScore
             addScore(u, c, d, s)
-            printScores()
           }
         };
       }
@@ -175,12 +195,20 @@ function getQuizApi(topic, difficulty) {
 }
 
 function showGifScreen(searchItem, message) {
-  trivia.style.display = "none";
   getGIF(searchItem, gifDisplay);
+  trivia.style.display = "none";
   gifScreenMessage.textContent = message;
   gifScreen.style.display = "block";
   setTimeout(function () {
     trivia.style.display = "block";
     gifScreen.style.display = "none";
-  }, 3000);
+  }, 4000);
+}
+
+function gameOver(){
+userScoreFinal = userScore * 10
+trivia.style.display = "none";
+gifScreen.style.display = "block"
+gifScreenMessage.textContent = "Game over! You scored " + userScoreFinal + " points."
+getGIF("That's All Folks", gifDisplay)
 }
