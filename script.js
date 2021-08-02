@@ -1,12 +1,16 @@
 //score variables
 var scoreObject = {
-  username: [],
-  score: [],
+  Username: [],
+  Category: [],
+  Difficulty: [],
+  Score: [],
+
 };
 var storedScores = JSON.parse(localStorage.getItem("scores"));
-var scoreEl = document.querySelector("#scoreEl");
+var tableRows = document.getElementsByClassName("tableRows")
+var highScoreMain = document.querySelector("#scores")
 var scoreHeader = document.querySelector("#scoreHeader");
-var gifTest = document.querySelector("#gifTest");
+
 //trivia screen variable
 var quizQuestion = document.querySelector("#quizQuestion");
 var quizAnswers = document.getElementsByClassName("answerButtons");
@@ -18,17 +22,22 @@ var gifScreen = document.querySelector("#gifScreen");
 var gifDisplay = document.querySelector("#gifDisplay");
 var trivia = document.querySelector("#trivia");
 var gifScreenMessage = document.querySelector("#gifScreenMessage");
-//menu variables
+//homescreen variables
 var topicDropDown = document.querySelector("#topicDropDown");
 var difficultyDropDown = document.querySelector("#difficulty");
+var userName = document.querySelector("#name")
 
 submitButton.onclick = function () {
   var t = topicDropDown.value;
   var d = difficultyDropDown.value;
-  console.log(t);
-  console.log(difficulty);
+  console.log(t)
+  console.log(d)
   getQuizApi(t, d);
 };
+//high score screen click
+highScoreMain.addEventListener("click", function() {
+printScores()
+})
 
 //All functions on page load
 let showScreen = function (screen) {
@@ -73,14 +82,18 @@ function getGIF(searchItem, gifEl) {
 
 //function for storing high scores
 
-function addScore(userInit, highScore) {
+function addScore(u, c, d, s) {
   if (storedScores !== null) {
-    storedScores.username.unshift(userInit);
-    storedScores.score.unshift(highScore);
+    storedScores.Username.unshift(u);
+    storedScores.Category.unshift(c)
+    storedScores.Difficulty.unshift(d)
+    storedScores.Score.unshift(s);
     localStorage.setItem("scores", JSON.stringify(storedScores));
   } else {
-    scoreObject.username.unshift(userInit);
-    scoreObject.score.unshift(highScore);
+    scoreObject.Username.unshift(u);
+    scoreObject.Category.unshift(c)
+    scoreObject.Difficulty.unshift(d)
+    scoreObject.Score.unshift(s);
     localStorage.setItem("scores", JSON.stringify(scoreObject));
     storedScores = JSON.parse(localStorage.getItem("scores"));
   }
@@ -90,14 +103,22 @@ function printScores() {
   if (storedScores === null) {
     scoreHeader.textContent = "There are no high scores yet. Play a quiz!";
   } else {
-    for (var i = 0; i < storedScores.username.length; i++) {
-      console.log("testing");
-      var userDiv = document.createElement("div");
-      var scoreDiv = document.createElement("div");
-      userDiv.innerHTML = storedScores.username[i];
-      scoreDiv.innerHTML = storedScores.score[i];
-      scoreEl.append(userDiv);
-      scoreEl.append(scoreDiv);
+    for (var i = 0; i < storedScores.Username.length; i++) {
+      //tableRows[i].style.display = "inline"
+      var tr1 = document.createElement("td")
+      var tr2 = document.createElement("td")
+      var tr3 = document.createElement("td")
+      var tr4 = document.createElement("td")
+      tr1.textContent = storedScores.Username[i]
+      tr2.textContent = storedScores.Category[i]
+      tr3.textContent = storedScores.Difficulty[i]
+      tr4.textContent = storedScores.Score[i]
+      tableRows[i].appendChild(tr1)
+      tableRows[i].appendChild(tr2)
+      tableRows[i].appendChild(tr3)
+      tableRows[i].appendChild(tr4)
+     
+      
     }
   }
 }
@@ -141,6 +162,12 @@ function getQuizApi(topic, difficulty) {
             lives--;
             showGifScreen("Angry", "Wrong!");
             getQuizApi(topic, difficulty);
+            var c = topicDropDown.value;
+            var d = difficultyDropDown.value;
+            var u = userName.value;
+            var s = userScore
+            addScore(u, c, d, s)
+            printScores()
           }
         };
       }
