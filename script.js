@@ -15,9 +15,10 @@ var scoreHeader = document.querySelector("#scoreHeader");
 var quizQuestion = document.querySelector("#quizQuestion");
 var quizAnswers = document.getElementsByClassName("answerButtons");
 var submitButton = document.querySelector("#submitButton");
+var userScore = 0;
 var disp = document.getElementById("display");
-var UserScore = 0;
 var lives = 3;
+var lifeContainer = document.getElementById("lives")
 //gifScreen variables
 var gifScreen = document.querySelector("#gifScreen");
 var gifDisplay = document.querySelector("#gifDisplay");
@@ -42,6 +43,7 @@ var incorrectArray = [
 "fool",
 ]
 var gifIndex = Math.floor(Math.random() * 8)
+var hearts = document.getElementsByClassName("heart")
 
 //homescreen variables
 var topicDropDown = document.querySelector("#topicDropDown");
@@ -57,7 +59,7 @@ submitButton.onclick = function () {
   getQuizApi(t, d);
 };
 //high score screen click
-printScores()
+
 //All functions on page load
 let showScreen = function (screen) {
   //prevent page from reloading on form submission
@@ -84,7 +86,7 @@ function getGIF(searchItem, gifEl) {
   var requestUrl =
     "https://api.giphy.com/v1/gifs/search?api_key=0pXpAzRY9RmZGboXjvmC9uwTPKv6JApT&q=" +
     searchItem +
-    "&limit=50&offset=0&rating=pg-13&lang=en";
+    "&limit=50&offset=0&rating=pg&lang=en";
 
   fetch(requestUrl)
     .then(function (response) {
@@ -177,11 +179,18 @@ function getQuizApi(topic, difficulty) {
         quizButtons.onclick = function () {
           if (this.innerHTML === data.results[i].correct_answer) {
             console.log("Correct");
-            userScore++ , disp.innerHTML = userScore; //We can have a variable to tally up user score
+            userScore++; //We can have a variable to tally up user score
             showGifScreen(correctArray[gifIndex], "Correct!");
             getQuizApi(topic, difficulty);
-          } else {
+          } 
+          else {
             lives--;
+            lifeContainer.removeChild(hearts[0]) 
+            if (lives <= 0) {
+            gameOver()
+            }
+            else {
+            //heartDisplay()
             showGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".")
             getQuizApi(topic, difficulty);
             var c = topicDropDown.value;
@@ -189,6 +198,7 @@ function getQuizApi(topic, difficulty) {
             var u = userName.value;
             var s = userScore
             addScore(u, c, d, s)
+            }
           }
         };
       }
@@ -198,7 +208,7 @@ function getQuizApi(topic, difficulty) {
 function showGifScreen(searchItem, message) {
   getGIF(searchItem, gifDisplay);
   trivia.style.display = "none";
-  gifScreenMessage.textContent = message;
+  gifScreenMessage.innerHTML = message;
   gifScreen.style.display = "block";
   setTimeout(function () {
     trivia.style.display = "block";
@@ -213,3 +223,17 @@ gifScreen.style.display = "block"
 gifScreenMessage.textContent = "Game over! You scored " + userScoreFinal + " points."
 getGIF("That's All Folks", gifDisplay)
 }
+
+
+/*
+function heartDisplay() {
+hearts.style.visibility = "none"
+for (var i=0; i < lives; i++){
+var imgEl = document.createElement("img")
+imgEl.setAttribute("src", "Assets/smallheart.jpg")
+lifeContainer.append(imgEl)
+console.log("test")
+}
+}
+*/
+printScores()
