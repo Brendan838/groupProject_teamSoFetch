@@ -16,6 +16,7 @@ var quizQuestion = document.querySelector("#quizQuestion");
 var quizAnswers = document.getElementsByClassName("answerButtons");
 var submitButton = document.querySelector("#submitButton");
 var userScore = 0;
+var disp = document.getElementById("display");
 var lives = 3;
 //gifScreen variables
 var gifScreen = document.querySelector("#gifScreen");
