@@ -179,7 +179,7 @@ function getQuizApi(topic, difficulty) {
         quizButtons.onclick = function () {
           if (this.innerHTML === data.results[i].correct_answer) {
             console.log("Correct");
-            userScore++; //We can have a variable to tally up user score
+            userScore++, disp.innerHTML = userScore ; //We can have a variable to tally up user score
             showGifScreen(correctArray[gifIndex], "Correct!");
             getQuizApi(topic, difficulty);
           } 
