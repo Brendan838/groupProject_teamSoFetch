@@ -17,7 +17,7 @@ var quizAnswers = document.getElementsByClassName("answerButtons");
 var submitButton = document.querySelector("#submitButton");
 var userScore = 0;
 var disp = document.getElementById("display");
-var lives = 1;
+var lives = 3;
 var lifeContainer = document.getElementById("lives")
 //gifScreen variables
 var gifScreen = document.querySelector("#gifScreen");
@@ -52,6 +52,8 @@ var difficultyDropDown = document.querySelector("#difficulty");
 var userName = document.querySelector("#name")
 
 submitButton.onclick = function () {
+  document.getElementById("home").style.display = "none"
+  document.getElementById("scores").style.display = "none"
   var t = topicDropDown.value;
   var d = difficultyDropDown.value;
   console.log(t)
@@ -149,7 +151,7 @@ function printScores() {
 
 function getQuizApi(topic, difficulty) {
   var requestUrl =
-    "https://opentdb.com/api.php?amount=20&category=" +
+    "https://opentdb.com/api.php?amount=50&category=" +
     topic +
     "&difficulty=" +
     difficulty +
@@ -177,7 +179,9 @@ function getQuizApi(topic, difficulty) {
       for (var g = 0; g < 4; g++) {
         var quizButtons = quizAnswers[g];
         quizButtons.onclick = function () {
-          if (this.innerHTML === data.results[i].correct_answer) {
+          if (this.innerHTML == data.results[i].correct_answer) {
+            console.log(this.innerHTML)
+            console.log(data.results[i].correct_answer)
             console.log("Correct");
             userScore = userScore + 10;
             disp.innerHTML = "Current score: " + userScore + " points." 
@@ -188,16 +192,17 @@ function getQuizApi(topic, difficulty) {
             lives--;
             lifeContainer.removeChild(hearts[0]) 
             if (lives <= 0) {
-            lastGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".")
-            }
-            else {
-            showGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".")
-            getQuizApi(topic, difficulty);
             var c = topicDropDown.value;
             var d = difficultyDropDown.value;
             var u = userName.value;
             var s = userScore
             addScore(u, c, d, s)
+            lastGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".")
+            }
+            else {
+            showGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".")
+            getQuizApi(topic, difficulty);
+          
             }
           }
         };
