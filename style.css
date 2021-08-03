@@ -85,3 +85,8 @@ padding-top: 30px;
 font-size: large;
 font-weight: bolder;
 }
+
+.lowQuestion {
+display: none;
+
+}

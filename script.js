@@ -17,7 +17,7 @@ var quizAnswers = document.getElementsByClassName("answerButtons");
 var submitButton = document.querySelector("#submitButton");
 var userScore = 0;
 var disp = document.getElementById("display");
-var lives = 3;
+var lives = 1;
 var lifeContainer = document.getElementById("lives")
 //gifScreen variables
 var gifScreen = document.querySelector("#gifScreen");
@@ -31,16 +31,16 @@ var correctArray = [
 "Party",
 "Celebration",
 "Yas",
-"tears of joy"
+"Hooray"
 ]
 var incorrectArray = [
-"Angry",
+"depressed",
 "yikes",
 "wrong",
 "stupid",
 "sad",
-"fail",
-"fool",
+"loser",
+"anxious",
 ]
 var gifIndex = Math.floor(Math.random() * 8)
 var hearts = document.getElementsByClassName("heart")
@@ -86,8 +86,8 @@ function getGIF(searchItem, gifEl) {
   var requestUrl =
     "https://api.giphy.com/v1/gifs/search?api_key=0pXpAzRY9RmZGboXjvmC9uwTPKv6JApT&q=" +
     searchItem +
-    "&limit=50&offset=0&rating=pg&lang=en";
-
+    "&limit=25&offset=0&rating=pg&lang=en";
+  console.log(searchItem)
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -170,16 +170,17 @@ function getQuizApi(topic, difficulty) {
         data.results[i].incorrect_answers[1],
         data.results[i].incorrect_answers[2],
       ];
-      var randomizedAnswers = answers.sort(() => Math.random() - 0.5); //this is a fancy function that I found to randomize questions
+      var randomizedAnswers = answers.sort(() => Math.random() - 0.5); 
       for (var t = 0; t < 4; t++) {
-        quizAnswers[t].innerHTML = randomizedAnswers[t]; //quiz answers is the class representing
+        quizAnswers[t].innerHTML = randomizedAnswers[t]; 
       }
       for (var g = 0; g < 4; g++) {
         var quizButtons = quizAnswers[g];
         quizButtons.onclick = function () {
           if (this.innerHTML === data.results[i].correct_answer) {
             console.log("Correct");
-            userScore++, disp.innerHTML = userScore ; //We can have a variable to tally up user score
+            userScore = userScore + 10;
+            disp.innerHTML = "Current score: " + userScore + " points." 
             showGifScreen(correctArray[gifIndex], "Correct!");
             getQuizApi(topic, difficulty);
           } 
@@ -187,10 +188,9 @@ function getQuizApi(topic, difficulty) {
             lives--;
             lifeContainer.removeChild(hearts[0]) 
             if (lives <= 0) {
-            gameOver()
+            lastGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".")
             }
             else {
-            //heartDisplay()
             showGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".")
             getQuizApi(topic, difficulty);
             var c = topicDropDown.value;
@@ -204,7 +204,7 @@ function getQuizApi(topic, difficulty) {
       }
     });
 }
-
+//for flashing gifs between questions
 function showGifScreen(searchItem, message) {
   getGIF(searchItem, gifDisplay);
   trivia.style.display = "none";
@@ -215,25 +215,31 @@ function showGifScreen(searchItem, message) {
     gifScreen.style.display = "none";
   }, 4000);
 }
-
+//for last time through the game
+function lastGifScreen(searchItem, message) {
+  getGIF(searchItem, gifDisplay);
+  trivia.style.display = "none";
+  gifScreenMessage.innerHTML = message;
+  gifScreen.style.display = "block";
+  setTimeout(function () {
+  gameOver()
+  }, 4000);
+}
+//end of game function
 function gameOver(){
-userScoreFinal = userScore * 10
-trivia.style.display = "none";
-gifScreen.style.display = "block"
-gifScreenMessage.textContent = "Game over! You scored " + userScoreFinal + " points."
-getGIF("That's All Folks", gifDisplay)
+setTimeout(function() {
+location.reload();
+}, 7000)
+var playAgain = 7
+setInterval(function(){
+playAgain--
+gifScreenMessage.textContent = "Game over! You scored " + userScore + " points." + " Play again in " + playAgain + " seconds!"
+
+}, 1000)
+getGIF("The End", gifDisplay)
+
 }
 
 
-/*
-function heartDisplay() {
-hearts.style.visibility = "none"
-for (var i=0; i < lives; i++){
-var imgEl = document.createElement("img")
-imgEl.setAttribute("src", "Assets/smallheart.jpg")
-lifeContainer.append(imgEl)
-console.log("test")
-}
-}
-*/
+
 printScores()
