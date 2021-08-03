@@ -75,3 +75,13 @@ form,
   width: 100%;
   max-width: 420px;
 }
+
+#lives{ 
+padding-top: 20px;
+}
+
+#count{
+padding-top: 30px;
+font-size: large;
+font-weight: bolder;
+}
