@@ -15,8 +15,8 @@ var scoreHeader = document.querySelector("#scoreHeader");
 var quizQuestion = document.querySelector("#quizQuestion");
 var quizAnswers = document.getElementsByClassName("answerButtons");
 var submitButton = document.querySelector("#submitButton");
-var userScore = 0;
 var disp = document.getElementById("display");
+var count = 0;
 var lives = 3;
 //gifScreen variables
 var gifScreen = document.querySelector("#gifScreen");
@@ -177,7 +177,7 @@ function getQuizApi(topic, difficulty) {
         quizButtons.onclick = function () {
           if (this.innerHTML === data.results[i].correct_answer) {
             console.log("Correct");
-            userScore++; //We can have a variable to tally up user score
+            count++ , disp.innerHTML = count; //We can have a variable to tally up user score
             showGifScreen(correctArray[gifIndex], "Correct!");
             getQuizApi(topic, difficulty);
           } else {
