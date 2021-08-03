@@ -44,15 +44,15 @@ List the ready features here:
 
 ## Screenshots
 
-![Example screenshot](Assets\browserpic.PNG)
+![Example screenshot](https://github.com/Brendan838/groupProject_teamSoFetch/blob/main/Assets/browserpic.PNG)
 
-![Example screenshot](Assets\browserpicthree.PNG)
+![Example screenshot](https://github.com/Brendan838/groupProject_teamSoFetch/blob/main/Assets/browserpicthree.PNG)
 
-![Example screenshot](Assets\browserpictwo.PNG)
+![Example screenshot](https://github.com/Brendan838/groupProject_teamSoFetch/blob/main/Assets/browserpictwo.PNG)
 
-![Example screenshot](Assets\phonepic.PNG)
+![Example screenshot](https://github.com/Brendan838/groupProject_teamSoFetch/blob/main/Assets/phonepic.PNG)
 
-![Example screenshot](Assets\phonepictwo.PNG)
+![Example screenshot](https://github.com/Brendan838/groupProject_teamSoFetch/blob/main/Assets/phonepictwo.PNG)
 
 <!-- If you have screenshots you'd like to share, include them here. -->
 
