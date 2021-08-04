@@ -42,22 +42,22 @@ var incorrectArray = [
 "loser",
 "anxious",
 ]
-var gifIndex = Math.floor(Math.random() * 8)
-var hearts = document.getElementsByClassName("heart")
+var gifIndex = Math.floor(Math.random() * 8);
+var hearts = document.getElementsByClassName("heart");
 
 //homescreen variables
 var topicDropDown = document.querySelector("#topicDropDown");
 var dropDownName = document.getElementsByClassName("dropDownName")
 var difficultyDropDown = document.querySelector("#difficulty");
-var userName = document.querySelector("#name")
+var userName = document.querySelector("#name");
 
 submitButton.onclick = function () {
-  document.getElementById("home").style.display = "none"
-  document.getElementById("scores").style.display = "none"
+  document.getElementById("home").style.display = "none";
+  document.getElementById("scores").style.display = "none";
   var t = topicDropDown.value;
   var d = difficultyDropDown.value;
-  console.log(t)
-  console.log(d)
+  console.log(t);
+  console.log(d);
   getQuizApi(t, d);
 };
 //high score screen click
@@ -89,7 +89,7 @@ function getGIF(searchItem, gifEl) {
     "https://api.giphy.com/v1/gifs/search?api_key=0pXpAzRY9RmZGboXjvmC9uwTPKv6JApT&q=" +
     searchItem +
     "&limit=25&offset=0&rating=pg&lang=en";
-  console.log(searchItem)
+  console.log(searchItem);
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -108,14 +108,14 @@ function getGIF(searchItem, gifEl) {
 function addScore(u, c, d, s) {
   if (storedScores !== null) {
     storedScores.Username.unshift(u);
-    storedScores.Category.unshift(c)
-    storedScores.Difficulty.unshift(d)
+    storedScores.Category.unshift(c);
+    storedScores.Difficulty.unshift(d);
     storedScores.Score.unshift(s);
     localStorage.setItem("scores", JSON.stringify(storedScores));
   } else {
     scoreObject.Username.unshift(u);
-    scoreObject.Category.unshift(c)
-    scoreObject.Difficulty.unshift(d)
+    scoreObject.Category.unshift(c);
+    scoreObject.Difficulty.unshift(d);
     scoreObject.Score.unshift(s);
     localStorage.setItem("scores", JSON.stringify(scoreObject));
     storedScores = JSON.parse(localStorage.getItem("scores"));
@@ -129,18 +129,18 @@ function printScores() {
     for (var i = 0; i < storedScores.Username.length; i++) {
       var indexNumber = (storedScores.Category[i]-9)
       console.log(indexNumber)
-      var tr1 = document.createElement("td")
-      var tr2 = document.createElement("td")
-      var tr3 = document.createElement("td")
-      var tr4 = document.createElement("td")
-      tr1.textContent = storedScores.Username[i]
-      tr2.textContent = dropDownName[indexNumber].textContent
-      tr3.textContent = storedScores.Difficulty[i]
-      tr4.textContent = storedScores.Score[i]
-      tableRows[i].appendChild(tr1)
-      tableRows[i].appendChild(tr2)
-      tableRows[i].appendChild(tr3)
-      tableRows[i].appendChild(tr4)
+      var tr1 = document.createElement("td");
+      var tr2 = document.createElement("td");
+      var tr3 = document.createElement("td");
+      var tr4 = document.createElement("td");
+      tr1.textContent = storedScores.Username[i];
+      tr2.textContent = dropDownName[indexNumber].textContent;
+      tr3.textContent = storedScores.Difficulty[i];
+      tr4.textContent = storedScores.Score[i];
+      tableRows[i].appendChild(tr1);
+      tableRows[i].appendChild(tr2);
+      tableRows[i].appendChild(tr3);
+      tableRows[i].appendChild(tr4);
      
       
     }
@@ -156,8 +156,8 @@ function getQuizApi(topic, difficulty) {
     "&difficulty=" +
     difficulty +
     "&type=multiple";
-    console.log(topic)
-    console.log(difficulty)
+    console.log(topic);
+    console.log(difficulty);
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -180,29 +180,28 @@ function getQuizApi(topic, difficulty) {
         var quizButtons = quizAnswers[g];
         quizButtons.onclick = function () {
           if (this.innerHTML == data.results[i].correct_answer) {
-            console.log(this.innerHTML)
-            console.log(data.results[i].correct_answer)
+            console.log(this.innerHTML);
+            console.log(data.results[i].correct_answer);
             console.log("Correct");
             userScore = userScore + 10;
-            disp.innerHTML = "Current score: " + userScore + " points." 
+            disp.innerHTML = "Current score: " + userScore + " points.";
             showGifScreen(correctArray[gifIndex], "Correct!");
             getQuizApi(topic, difficulty);
           } 
           else {
             lives--;
-            lifeContainer.removeChild(hearts[0]) 
+            lifeContainer.removeChild(hearts[0]);
             if (lives <= 0) {
             var c = topicDropDown.value;
             var d = difficultyDropDown.value;
             var u = userName.value;
-            var s = userScore
-            addScore(u, c, d, s)
-            lastGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".")
+            var s = userScore;
+            addScore(u, c, d, s);
+            lastGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".");
             }
             else {
-            showGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".")
+            showGifScreen(incorrectArray[gifIndex], "Wrong! The correct answer was: " + data.results[i].correct_answer + ".");
             getQuizApi(topic, difficulty);
-          
             }
           }
         };
@@ -227,24 +226,24 @@ function lastGifScreen(searchItem, message) {
   gifScreenMessage.innerHTML = message;
   gifScreen.style.display = "block";
   setTimeout(function () {
-  gameOver()
+  gameOver();
   }, 4000);
 }
 //end of game function
 function gameOver(){
 setTimeout(function() {
 location.reload();
-}, 7000)
-var playAgain = 7
+}, 7000);
+var playAgain = 7;
 setInterval(function(){
-playAgain--
-gifScreenMessage.textContent = "Game over! You scored " + userScore + " points." + " Play again in " + playAgain + " seconds!"
+playAgain--;
+gifScreenMessage.textContent = "Game over! You scored " + userScore + " points." + " Play again in " + playAgain + " seconds!";
 
 }, 1000)
-getGIF("The End", gifDisplay)
+getGIF("The End", gifDisplay);
 
 }
 
 
 
-printScores()
+printScores();
