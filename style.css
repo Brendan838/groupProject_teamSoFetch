@@ -76,18 +76,21 @@ form,
   max-width: 420px;
 }
 
-#lives{ 
-padding-top: 20px;
+#lives {
+  padding-top: 20px;
 }
 
-#userScore{
-padding-top: 30px;
-font-size: large;
-font-weight: bolder;
+#userScore {
+  padding-top: 30px;
+  font-size: large;
+  font-weight: bolder;
 }
 
 .lowQuestion {
-display: none;
-
+  display: none;
 }
 
+#lobsterCursive {
+  font-family: "Lobster", cursive;
+  font-size: 30px;
+}
